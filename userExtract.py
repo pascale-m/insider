@@ -1,12 +1,9 @@
 from twython import Twython
 from watson_developer_cloud import PersonalityInsightsV3
 import time
+import sys
 import json
 from klout import *
-
-
-
-
 
 
 CONSUMER_KEY = 'GdVE1KUrR9A3Cj3OodaGARFaw'
@@ -27,7 +24,10 @@ personality_insights = PersonalityInsightsV3(
 
 def findAccounts(orgString, k):
 	searchString = '@'+orgString
-	accounts = twitter.search_users(q=searchString, count=20)
+	accounts = twitter.search_users(q=searchString, count=3)
+	
+	# contains (screenname, score)
+	accountInfo = []
 
 	for i in range(0, len(accounts)):
 		print(accounts[i]['screen_name'])
@@ -35,13 +35,18 @@ def findAccounts(orgString, k):
 			try:
 				kloutId = k.identity.klout(tw=accounts[i]['id_str']).get('id')
 				score = k.user.score(kloutId=kloutId).get('score')
+				accountInfo.append([accounts[i]['screen_name'], score])
 				print "User's klout score is: %s" % (score)	
 			except:
 				print 'forbidden error'
 		else:
 			print 'private twitter page'
-
-	
+	sortedAccounts = sorted(accountInfo, key=lambda x: x[1])
+	sortedAccounts = sortedAccounts[-3:]
+	queryString = ''
+	for x in sortedAccounts:
+		queryString += getTweets(x[0])
+	return analyzeTweets(queryString)
 
 
 
@@ -53,22 +58,23 @@ def getTweets( userString):
 	for i in range(0, 1): ## iterate through all tweets
 	## tweet extract method with the last list item as the max_id
 	    user_timeline = twitter.get_user_timeline(screen_name=userString,
-	    count=60, include_rts=False, max_id=lis[-1])
+	    count=10, include_rts=False, max_id=lis[-1])
 	    ##ctime.sleep(300) ## 5 minute rest between api calls
 
 	    for tweet in user_timeline:
 	        print tweet['text'] ## print the tweet
 	        lis.append(tweet['id']) ## append tweet id's
-	        tweetstring += tweet['text']+' '
-  	tweetstring = tweetstring.encode('utf-8')
+	        tweetstring += tweet['text']+'  '
+  	return tweetstring.encode('utf-8')
   	
+
 def analyzeTweets(tweets):
 	profile = personality_insights.profile(
 		tweets, content_type='text/plain',
 		raw_scores=True, consumption_preferences=True)
 	print(profile['word_count'])
+	return profile
 
-
-#accountsToExtract = findAccounts('Apple', k)
-#getTweets('cellar4door');
-#analyzeTweets(tweets);
+if(len(sys.argv)>1):
+	argument = sys.argv[1]+''
+	accountsToExtract = findAccounts(argument, k)
