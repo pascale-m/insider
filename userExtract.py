@@ -27,7 +27,7 @@ personality_insights = PersonalityInsightsV3(
 
 def findAccounts(orgString, k):
 	a=0
-	searchString = '@'+orgString
+	searchString = 'work at '+orgString
 	accounts = twitter.search_users(q=searchString, count=5)
 	
 	# contains (screenname, score)
@@ -71,7 +71,7 @@ def getTweets( userString):
 	for i in range(0, 1): ## iterate through all tweets
 	## tweet extract method with the last list item as the max_id
 		user_timeline = twitter.get_user_timeline(screen_name=userString,
-		count=10, include_rts=False, max_id=lis[-1])
+		count=100, include_rts=False, max_id=lis[-1])
 		##ctime.sleep(300) ## 5 minute rest between api calls
 
 		for tweet in user_timeline:
