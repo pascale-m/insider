@@ -1,2 +1,2 @@
 /*global angular*/
-var app = angular.module("insiderApp", []);
+var app = angular.module("insiderApp", ['ngRoute']);

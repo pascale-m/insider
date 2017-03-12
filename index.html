@@ -9,6 +9,7 @@
       
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
       <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
+      
   </head>
   <body ng-Controller="MainController">
       <div id="header">
@@ -17,7 +18,16 @@
           </div>
       </div>
       <div id="main">
-          {{ metrics.location.name }}
+          
+        <!-- we are using bootstrap for these styling classes -->
+
+        <form ng-submit="submit()">
+  Enter text and hit enter:
+  <input type="text" ng-model="text" name="text" />
+  <input type="submit" id="submit" value="Submit" />
+  <pre>list={{list}}</pre>
+          </form>
+          
       </div>
       
       
