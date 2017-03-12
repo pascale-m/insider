@@ -18,65 +18,101 @@ twitter = Twython(CONSUMER_KEY,CONSUMER_SECRET,ACCESS_KEY,ACCESS_SECRET)
 # Make the Klout object
 k = Klout('rkyutwv2tna2tkffymmefkuj', secure=True)
 
+
+
 personality_insights = PersonalityInsightsV3(
   version='2016-10-20',
   username='f5b5d68f-22f8-46b8-9323-834de272a20b',
   password='Y8lZLGEw8WUY')
 
 def findAccounts(orgString, k):
+	a=0
 	searchString = '@'+orgString
-	accounts = twitter.search_users(q=searchString, count=20)
+	accounts = twitter.search_users(q=searchString, count=5)
 	
 	# contains (screenname, score)
 	accountInfo = []
-	print orgString
+
 	for i in range(0, len(accounts)):
-		print(accounts[i]['screen_name'])
+#		print(accounts[i]['screen_name'])
 		if(accounts[i]['protected']==False):
 			try:
 				kloutId = k.identity.klout(tw=accounts[i]['id_str']).get('id')
 				score = k.user.score(kloutId=kloutId).get('score')
 				accountInfo.append([accounts[i]['screen_name'], score])
-				print "User's klout score is: %s" % (score)	
+				#print "User's klout score is: %s" % (score)	
 			except:
-				print 'forbidden error'
+				a += 1
 		else:
-			print 'private twitter page'
+			a+=2
 	sortedAccounts = sorted(accountInfo, key=lambda x: x[1])
 	sortedAccounts = sortedAccounts[-3:]
 	queryString = u''
 	for x in sortedAccounts:
-		queryString += getTweets(x[0])
+		queryString += unicode(getTweets(x[0]))
+		try:
+			queryString.encode('utf-8')
+			#print "query is UTF-8, length %d bytes" % len(queryString)
+		except UnicodeError:
+			#print "qstring is not UTF-8"
+			a+=1
+	
 	return analyzeTweets(queryString)
 
 
 
 def getTweets( userString):
+	a=0
+	#print userString
 	tweetstring = u''
 	user_timeline = twitter.get_user_timeline(screen_name=userString, count=1)
 	tweetId = user_timeline[0]['id']
 	lis = [tweetId] ## this is the latest starting tweet id
 	for i in range(0, 1): ## iterate through all tweets
 	## tweet extract method with the last list item as the max_id
-	    user_timeline = twitter.get_user_timeline(screen_name=userString,
-	    count=10, include_rts=False, max_id=lis[-1])
-	    ##ctime.sleep(300) ## 5 minute rest between api calls
+		user_timeline = twitter.get_user_timeline(screen_name=userString,
+		count=10, include_rts=False, max_id=lis[-1])
+		##ctime.sleep(300) ## 5 minute rest between api calls
 
-	    for tweet in user_timeline:
-	        #print tweet['text'] ## print the tweet
-	        lis.append(tweet['id']) ## append tweet id's
-	        tweetstring += tweet['text']+u'  '
-  	return tweetstring
-  	
+		for tweet in user_timeline:
+			#print tweet['text'] ## print the tweet
+			lis.append(tweet['id']) ## append tweet id's
+
+			try:
+				tweetstring.encode('utf-8')
+				#print "tweetstring is UTF-8, length %d bytes" % len(tweetstring)
+			except UnicodeError:
+				#print "string is not UTF-8"
+				a+=1
+			
+			thistweet = tweet['text'].encode('utf8', errors='ignore')
+			thiscleantweet = u''
+			for i in range(0, len(thistweet)):
+				try:
+					thischar = thistweet[i].decode('utf-8')
+
+					thiscleantweet += thischar
+				except UnicodeError:
+					#print "string is not UTF-8"
+					a+=1
+			try:
+				thiscleantweet.encode('utf-8')
+				#print "cleanedstring is UTF-8, length %d bytes" % len(thiscleantweet)
+			except UnicodeError:
+				#print "string is not UTF-8"
+				a+=1
+			tweetstring += thiscleantweet;
+	return tweetstring
+	
 
 def analyzeTweets(tweets):
-	tweets = tweets.decode('utf-8', 'ignore')
+	tweets = tweets.encode('ascii', 'ignore')
 	profile = personality_insights.profile(
 		tweets, content_type='text/plain',
 		raw_scores=True, consumption_preferences=True)
-	print(profile['word_count'])
 	return profile
 
 if(len(sys.argv)>1):
 	argument = sys.argv[1]+''
 	accountsToExtract = findAccounts(argument, k)
+	print accountsToExtract
