@@ -1,0 +1,27 @@
+{
+  "name": "insider",
+  "version": "1.0.0",
+  "description": "project for hackuvic 2017 !",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pascale-m/insider.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pascale-m/insider/issues"
+  },
+  "homepage": "https://github.com/pascale-m/insider#readme",
+  "dependencies": {
+    "express": "^4.15.2",
+    "python-shell": "^0.4.0"
+  },
+  "engines": {
+    "node": "7.6.0"
+  }
+}

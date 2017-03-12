@@ -3,6 +3,7 @@ from watson_developer_cloud import PersonalityInsightsV3
 import time
 import sys
 import json
+import codecs
 from klout import *
 
 
@@ -24,11 +25,11 @@ personality_insights = PersonalityInsightsV3(
 
 def findAccounts(orgString, k):
 	searchString = '@'+orgString
-	accounts = twitter.search_users(q=searchString, count=3)
+	accounts = twitter.search_users(q=searchString, count=20)
 	
 	# contains (screenname, score)
 	accountInfo = []
-
+	print orgString
 	for i in range(0, len(accounts)):
 		print(accounts[i]['screen_name'])
 		if(accounts[i]['protected']==False):
@@ -43,7 +44,7 @@ def findAccounts(orgString, k):
 			print 'private twitter page'
 	sortedAccounts = sorted(accountInfo, key=lambda x: x[1])
 	sortedAccounts = sortedAccounts[-3:]
-	queryString = ''
+	queryString = u''
 	for x in sortedAccounts:
 		queryString += getTweets(x[0])
 	return analyzeTweets(queryString)
@@ -51,7 +52,7 @@ def findAccounts(orgString, k):
 
 
 def getTweets( userString):
-	tweetstring = ''
+	tweetstring = u''
 	user_timeline = twitter.get_user_timeline(screen_name=userString, count=1)
 	tweetId = user_timeline[0]['id']
 	lis = [tweetId] ## this is the latest starting tweet id
@@ -62,13 +63,14 @@ def getTweets( userString):
 	    ##ctime.sleep(300) ## 5 minute rest between api calls
 
 	    for tweet in user_timeline:
-	        print tweet['text'] ## print the tweet
+	        #print tweet['text'] ## print the tweet
 	        lis.append(tweet['id']) ## append tweet id's
-	        tweetstring += tweet['text']+'  '
-  	return tweetstring.encode('utf-8')
+	        tweetstring += tweet['text']+u'  '
+  	return tweetstring
   	
 
 def analyzeTweets(tweets):
+	tweets = tweets.decode('utf-8', 'ignore')
 	profile = personality_insights.profile(
 		tweets, content_type='text/plain',
 		raw_scores=True, consumption_preferences=True)
