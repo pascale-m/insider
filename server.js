@@ -4,7 +4,7 @@ var PythonShell = require('python-shell');
 var express = require('express'),
     app = module.exports.app = express();
 const PORT = process.env.PORT || 3000;
-
+console.log('server running on port 3000');
 app.use(express.static(path.join(__dirname, 'public')));
 
 var server = http.createServer(app);
