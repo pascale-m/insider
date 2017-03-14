@@ -3,13 +3,19 @@
   <head>
     <title>Insider</title>
       
-      <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
       <link href="css/main.css" rel="stylesheet" />
-      
-      
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
-      <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
+
+      <!-- Modules -->
+      <script src="js/app.js"></script>
       
+      <!-- Controllers -->
+      <script src="js/controllers/MainController.js"></script>
+      
+      <!-- Services -->
+      <script src="js/services/company_profile.js"></script>
   </head>
   <body ng-Controller="MainController">
       <div id="header">
@@ -145,14 +151,7 @@
       
       
       
-      <!-- Modules -->
-      <script src="js/app.js"></script>
       
-      <!-- Controllers -->
-      <script src="js/controllers/MainController.js"></script>
-      
-      <!-- Services -->
-      <script src="js/services/company_profile.js"></script>
       
   </body>
 </html>
