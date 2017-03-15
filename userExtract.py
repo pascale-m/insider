@@ -107,12 +107,22 @@ def getTweets( userString):
 
 def analyzeTweets(tweets):
 	tweets = tweets.encode('ascii', 'ignore')
-	profile = personality_insights.profile(
-		tweets, content_type='text/plain',
-		raw_scores=True, consumption_preferences=True)
+	profile = personality_insights.profile(tweets, content_type='text/plain', raw_scores=False)
+
+	profile['values'][0]['percentile'] = round(profile['values'][0]['percentile']*100)
+	profile['values'][1]['percentile'] = round(profile['values'][1]['percentile']*100)
+	profile['values'][2]['percentile'] = round(profile['values'][2]['percentile']*100)
+	profile['values'][3]['percentile'] = round(profile['values'][3]['percentile']*100)
+	profile['values'][4]['percentile'] = round(profile['values'][4]['percentile']*100)
+	
+	profile['personality'][0]['percentile'] = round(profile['personality'][0]['percentile']*100)
+	profile['personality'][1]['percentile'] = round(profile['personality'][1]['percentile']*100)
+	profile['personality'][2]['percentile'] = round(profile['personality'][2]['percentile']*100)
+	profile['personality'][3]['percentile'] = round(profile['personality'][3]['percentile']*100)
+	profile['personality'][4]['percentile'] = round(profile['personality'][4]['percentile']*100)
 	return profile
 
 if(len(sys.argv)>1):
 	argument = sys.argv[1]+''
 	accountsToExtract = findAccounts(argument, k)
-	print accountsToExtract
+	print json.dumps(accountsToExtract)
