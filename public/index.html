@@ -1,157 +1,135 @@
 <!doctype html>
 <html ng-app="insiderApp">
-  <head>
-    <title>Insider</title>
-      
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-      <link href="css/main.css" rel="stylesheet" />
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
 
-      <!-- Modules -->
-      <script src="js/app.js"></script>
-      
-      <!-- Controllers -->
-      <script src="js/controllers/MainController.js"></script>
-      
-      <!-- Services -->
-      <script src="js/services/company_profile.js"></script>
-  </head>
-  <body ng-Controller="MainController">
-      <div id="header">
-          <div class="container">
-              <h1>Insider</h1>
-              <p>A better way to gain insight into a company's culture.</p>
-          </div>
-      </div>
-      <div id="main" class="container">
-          
-        <!-- we are using bootstrap for these styling classes -->
+<head>
+	<title>Insider</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+	<link href="css/main.css" rel="stylesheet" />
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
+	<!-- Modules -->
+	<script src="js/app.js"></script>
+	<!-- Controllers -->
+	<script src="js/controllers/MainController.js"></script>
 
-        <form ng-submit="submit()">
-  Company Name:
-  <input type="text" ng-model="text" name="text" />
-  <input type="submit" id="submit" value="Submit" />
-  
-          </form>
-          
-          <div class="row" id="results" ng-src="{{ data.values }}">
-  <div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
-        <h3>Values</h3>
-        <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                    60%
-                    <!--{{info.percentile}}-->
-                </div>
-        </div>
-        <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                    60%
-                    <!--{{info.percentile}}-->
-                </div>
-        </div>
-        <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                    60%
-                    <!--{{info.percentile}}-->
-                </div>
-        </div>
-        <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                    60%
-                    <!--{{info.percentile}}-->
-                </div>
-        </div>
-        <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                    60%
-                    <!--{{info.percentile}}-->
-                </div>
-        </div>
-    </div>            
-    </div>
-              <div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
-        <h3>Personality*</h3>
-        <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                    60%
-                    <!--{{info.percentile}}-->
-                </div>
-        </div>
-        <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                    60%
-                    <!--{{info.percentile}}-->
-                </div>
-        </div>
-        <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                    60%
-                    <!--{{info.percentile}}-->
-                </div>
-        </div>
-        <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                    60%
-                    <!--{{info.percentile}}-->
-                </div>
-        </div>
-        <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                    60%
-                    <!--{{info.percentile}}-->
-                </div>
-        </div>
-        
-        
-    </div>            
-    </div>
-    <div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
-        <h3>Needs</h3>
-      <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                    60%
-                    <!--{{info.percentile}}-->
-                </div>
-        </div>
-        <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                    60%
-                    <!--{{info.percentile}}-->
-                </div>
-        </div>
-        <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                    60%
-                    <!--{{info.percentile}}-->
-                </div>
-        </div>
-        <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                    60%
-                    <!--{{info.percentile}}-->
-                </div>
-        </div>
-        <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                    60%
-                    <!--{{info.percentile}}-->
-                </div>
-        </div>
-    </div>            
-    </div>
-  </div>
-</div>
-          
-          
-      </div>
-      
-      
-      
-      
-      
-  </body>
+</head>
+
+<body ng-Controller="MainController">
+	<div id="header">
+		<div class="container">
+			<h1>Insider</h1>
+			<p>A better way to gain insight into a company's culture.</p>
+		</div>
+	</div>
+	<div id="main" class="container">
+		<!-- we are using bootstrap for these styling classes -->
+		<form ng-submit="submit()"> Company Name:
+			<input type="text" ng-model="text" name="text" />
+			<input type="submit" id="submit" value="Submit" /> 
+		</form>
+		<div class="row" id="results">
+			<div class="col-sm-6 col-md-4">
+				<div class="thumbnail">
+					<h3>Values</h3>
+					<p>Conservation</p>
+					<div class="progress">
+						<div class="progress-bar" role="progressbar" aria-valuenow= "10" aria-valuemin="0" aria-valuemax="100" ng-style="{ 'width' : data.values[0].percentile+'%'}"> 
+							<span ng-bind="data.values[0].percentile"></span>
+						</div>
+					</div>
+					<p>Openness to change</p>
+					<div class="progress">
+						<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" ng-style="{ 'width' : data.values[1].percentile +'%'}"> 
+							<span ng-bind="data.values[1].percentile"></span>
+						</div>
+					</div>
+					<p>Hedonism</p>
+					<div class="progress">
+						<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" ng-style="{ 'width' : data.values[2].percentile +'%'}"> 
+							<span ng-bind="data.values[2].percentile"></span>
+						</div>
+					</div>
+					<p>Self Enhancement</p>
+					<div class="progress">
+						<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" ng-style="{ 'width' : data.values[3].percentile +'%'}"> 
+							<span ng-bind="data.values[3].percentile"></span>
+						</div>
+					</div>
+					<p>Selflessness</p>
+					<div class="progress">
+						<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" ng-style="{ 'width' : data.values[4].percentile +'%'}">
+							<span ng-bind="data.values[4].percentile"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6 col-md-4">
+				<div class="thumbnail">
+					<h3>Personality*</h3>
+					<p>Openness</p>
+					<div class="progress">
+						<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" ng-style="{ 'width' : data.personality[0].percentile+'%'}"> 
+							<span ng-bind="data.personality[0].percentile"></span>
+						</div>
+					</div>
+					<p>Conscientiousness</p>
+					<div class="progress">
+						<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" ng-style="{ 'width' : data.personality[1].percentile+'%'}"> 
+							<span ng-bind="data.personality[1].percentile"></span>
+						</div>
+					</div>
+					<p>Extraversion</p>
+					<div class="progress">
+						<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" ng-style="{ 'width' : data.personality[2].percentile+'%'}"> 
+							<span ng-bind="data.personality[2].percentile"></span>
+						</div>
+					</div>
+					<p>Agreeableness</p>
+					<div class="progress">
+						<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" ng-style="{ 'width' : data.personality[3].percentile+'%'}"> 
+							<span ng-bind="data.personality[3].percentile"></span>
+						</div>
+					</div>
+					<p>Emotional Range</p>
+					<div class="progress">
+						<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" ng-style="{ 'width' : data.personality[4].percentile+'%'}">
+							<span ng-bind="data.personality[4].percentile"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6 col-md-4">
+				<div class="thumbnail">
+					<h3>Needs</h3>
+					<div class="progress">
+						<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"> 60%
+							<!--{{info.percentile}}-->
+						</div>
+					</div>
+					<div class="progress">
+						<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"> 60%
+							<!--{{info.percentile}}-->
+						</div>
+					</div>
+					<div class="progress">
+						<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"> 60%
+							<!--{{info.percentile}}-->
+						</div>
+					</div>
+					<div class="progress">
+						<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"> 60%
+							<!--{{info.percentile}}-->
+						</div>
+					</div>
+					<div class="progress">
+						<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"> 60%
+							<!--{{info.percentile}}-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
 </html>

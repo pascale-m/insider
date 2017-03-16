@@ -31,7 +31,11 @@ app.get('/:companyid', function(req,res) {
  		// results is an array consisting of messages collected during execution
 
     	pyResults = results[0]
-		res.send(jsonData:pyResults, status:200)
+    	var toSend = {
+			data: pyResults,
+			status: 200
+		}
+		res.send(toSend)
 	});
 
 	
